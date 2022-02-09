@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import NoteForm from "./components/noteForm";
+import NoteLists from "./components/noteLists";
+import CategoryLists from "./components/CategoryLists";
+import "./assets/App.css";
+import './assets/index.css';
+import Categories from "./data/Categories";
+import Notes from "./data/Notes";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(){
+    super();
+    this.categories = new Categories();
+    this.notes = new Notes();
+  }
+
+
+  render() {
+    return (
+      <section className="conteudo">
+        <NoteForm categories={this.categories.categories}
+                  createNote={this.notes.addNote}/>
+        <main className="conteudo-principal">
+          <CategoryLists categories={this.categories.categories}
+                         addCategory={this.categories.addCategory} />
+          <NoteLists
+          deleteNote={this.notes.deleteNote}
+          notes={this.notes.notes} />
+        </main>
+
+      </section>
+    );
+  }
 }
 
 export default App;
